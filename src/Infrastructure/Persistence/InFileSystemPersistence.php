@@ -5,12 +5,45 @@ declare(strict_types=1);
 namespace App\Infrastructure\Persistence;
 
 use App\Domain\Ad;
+use App\Domain\interfaces\AdsInterface;
 use App\Domain\Picture;
 
-final class InFileSystemPersistence
+final class InFileSystemPersistence implements AdsInterface
 {
     private array $ads = [];
     private array $pictures = [];
+
+    /**
+     * @return array
+     */
+    public function getAds(): array
+    {
+        return $this->ads;
+    }
+
+    /**
+     * @param array $ads
+     */
+    public function setAds(array $ads): void
+    {
+        $this->ads = $ads;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPictures(): array
+    {
+        return $this->pictures;
+    }
+
+    /**
+     * @param array $pictures
+     */
+    public function setPictures(array $pictures): void
+    {
+        $this->pictures = $pictures;
+    }
 
     public function __construct()
     {
@@ -31,5 +64,15 @@ final class InFileSystemPersistence
         array_push($this->pictures, new Picture(6, 'https://www.idealista.com/pictures/6', 'SD'));
         array_push($this->pictures, new Picture(7, 'https://www.idealista.com/pictures/7', 'SD'));
         array_push($this->pictures, new Picture(8, 'https://www.idealista.com/pictures/8', 'HD'));
+    }
+
+    public function getList(): array
+    {
+        return [$this->ads,$this->pictures];
+    }
+
+    public function update(Ad $ad): void
+    {
+        // TODO: Implement update() method.
     }
 }
