@@ -2,51 +2,46 @@
 
 declare(strict_types=1);
 
-namespace App\Domain;
+namespace App\Infrastructure\Api;
 
 use DateTimeImmutable;
 
-final class Ad
+final class QualityAd
 {
-    const NOPHOTO = -10;
-    const HDPHOTO = 20;
-    const SDPHOTO = 10;
-    const HD = "HD";
-
     private int $id;
-    private string $typology;
-    private string $description;
-    private array $pictures;
-    private int $houseSize;
-    private ?int $gardenSize = null;
-    private ?int $score = null;
-    private ?DateTimeImmutable $irrelevantSince = null;
+        private String $typology;
+        private String $description;
+        private array $pictureUrls;
+        private int $houseSize;
+        private ?int $gardenSize = null;
+        private ?int $score = null;
+        private ?DateTimeImmutable $irrelevantSince = null;
 
     /**
-     * Ad constructor.
+     * QualityAd constructor.
      * @param int $id
      * @param String $typology
      * @param String $description
-     * @param array $pictures
+     * @param array $pictureUrls
      * @param int $houseSize
      * @param int|null $gardenSize
      * @param int|null $score
      * @param DateTimeImmutable|null $irrelevantSince
      */
     public function __construct(
+        ?int $score,
         int $id,
         string $typology,
         string $description,
-        array $pictures,
+        array $pictureUrls,
         int $houseSize,
         ?int $gardenSize,
-        ?int $score,
         ?DateTimeImmutable $irrelevantSince
     ) {
         $this->id = $id;
         $this->typology = $typology;
         $this->description = $description;
-        $this->pictures = $pictures;
+        $this->pictureUrls = $pictureUrls;
         $this->houseSize = $houseSize;
         $this->gardenSize = $gardenSize;
         $this->score = $score;
@@ -104,29 +99,17 @@ final class Ad
     /**
      * @return array
      */
-    public function getPictures(): array
+    public function getPictureUrls(): array
     {
-        return $this->pictures;
+        return $this->pictureUrls;
     }
 
     /**
-     * @param array $pictures
+     * @param array $pictureUrls
      */
-    public function setPictures(array $pictures): void
+    public function setPictureUrls(array $pictureUrls): void
     {
-        $this->pictures = $pictures;
-    }
-
-    public function searchPicture(array $ids, array $pictures): array{
-        $response=[];
-        foreach($pictures as $picture){
-            foreach ($ids as $id) {
-                if ($picture->getId() === $id) {
-                    array_push($response,$picture->getUrl());
-                }
-            }
-        }
-        return $response;
+        $this->pictureUrls = $pictureUrls;
     }
 
     /**
@@ -192,17 +175,16 @@ final class Ad
     {
         $this->irrelevantSince = $irrelevantSince;
     }
-
-    public function getData(): array
+    public function getData($pictures): array
     {
         return [
+            $this->getScore(),
             $this->getId(),
             $this->getTypology(),
             $this->getDescription(),
-            $this->getPictures(),
+            $pictures,
             $this->getHouseSize(),
             $this->getGardenSize(),
-            $this->getScore(),
             $this->getIrrelevantSince()
         ];
     }

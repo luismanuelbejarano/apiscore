@@ -2,3 +2,13 @@ score:
   path: /score
   controller:  App\Infrastructure\Api\CalculateScoreController
   methods: GET
+
+public_list:
+  path: /public
+  controller:  App\Infrastructure\Api\PublicListingController
+  methods: GET
+
+quality_list:
+  path: /quality
+  controller:  App\Infrastructure\Api\QualityListingController
+  methods: GET

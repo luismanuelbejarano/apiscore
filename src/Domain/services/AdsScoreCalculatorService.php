@@ -35,9 +35,9 @@ class AdsScoreCalculatorService
      * @param $images
      * @return array
      */
-    public function calculateTotalScore($ads, $images): array
+    public function calculateTotalScore($ads, $images, $object): array
     {
-        $response=[];
+        $response = [];
         foreach ($ads as $ad) {
             $ad->setScore(0);
 
@@ -127,7 +127,13 @@ class AdsScoreCalculatorService
             } else {
                 $ad->setIrrelevantSince(null);
             }
-            array_push($response,$ad->getData());
+
+            $dataReturn = $ad;
+            if (!$object) {
+                $dataReturn = $ad->getData();
+            }
+
+            array_push($response, $dataReturn);
         }
         return $response;
     }

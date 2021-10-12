@@ -13,7 +13,7 @@ final class CalculateScoreController
 {
     public function __invoke(AdsScoreCalculatorService $adsScoreCalculatorService, InFileSystemPersistence $data): JsonResponse
     {
-        $ads=$adsScoreCalculatorService->calculateTotalScore($data->getAds(),$data->getPictures());
+        $ads=$adsScoreCalculatorService->calculateTotalScore($data->getAds(),$data->getPictures(),false);
         $response=new JsonResponse($ads);
         $response->setEncodingOptions( $response->getEncodingOptions() | JSON_PRETTY_PRINT );
         return $response;
