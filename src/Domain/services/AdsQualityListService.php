@@ -6,9 +6,20 @@ namespace App\Domain\services;
 
 use App\Infrastructure\Api\QualityAd;
 
+/**
+ * returns list suitable for quality responsible
+ *
+ * Class AdsQualityListService
+ * @package App\Domain\services
+ */
 class AdsQualityListService
 {
-    public function getPublicList($data, $pictures): array
+    /**
+     * @param $data
+     * @param $pictures
+     * @return array
+     */
+    public function getQualityList($data, $pictures): array
     {
         $response = [];
         foreach ($data as $item) {

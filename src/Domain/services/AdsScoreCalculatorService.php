@@ -5,6 +5,8 @@ namespace App\Domain\services;
 
 
 /**
+ * service that calculates score of ads
+ *
  * Class AdsScoreCalculatorService
  * @package App\Domain\services
  */

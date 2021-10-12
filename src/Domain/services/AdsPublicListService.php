@@ -6,8 +6,19 @@ namespace App\Domain\services;
 
 use App\Infrastructure\Api\PublicAd;
 
+/**
+ * service that returns Public list (suitable for normal users)
+ *
+ * Class AdsPublicListService
+ * @package App\Domain\services
+ */
 class AdsPublicListService
 {
+    /**
+     * @param $data
+     * @param $pictures
+     * @return array
+     */
     public function getPublicList($data, $pictures): array
     {
         $response = [];

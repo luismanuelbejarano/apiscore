@@ -13,7 +13,9 @@ final class PublicListingController
 {
     public function __invoke(AdsScoreCalculatorService $adsScoreCalculatorService, InFileSystemPersistence $data, AdsPublicListService $adsPublicListService): JsonResponse
     {
+        //calculate score
         $ads=$adsScoreCalculatorService->calculateTotalScore($data->getAds(),$data->getPictures(),true);
+        //get public list using service
         $publicList=$adsPublicListService->getPublicList($ads,$data->getPictures());
         $response=new JsonResponse($publicList);
         $response->setEncodingOptions( $response->getEncodingOptions() | JSON_PRETTY_PRINT );
